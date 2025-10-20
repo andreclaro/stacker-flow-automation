@@ -34,37 +34,38 @@ const main = async () => {
 
       console.log('Current cycle:', currentCycle);
 
-      if (blocksUntilPreparePhase > 0) {
-        console.log(
-          "Next cycle's prepare phase starts in",
-          blocksUntilPreparePhase,
-          'blocks.'
-        );
+      console.log(
+        "Next cycle's prepare phase starts in",
+        blocksUntilPreparePhase,
+        'blocks.'
+      );
 
-        await createAndClearTables();
-  
-        const dbEntries = await removeAnchoredTransactionsFromDatabase();
-        const events = await getEvents();
-  
-        const rewardIndexesMap = await getRewardIndexesMap(currentCycle);
-  
-        const {
-          delegations,
-          acceptedDelegations,
-          committedDelegations,
-          previousDelegations,
-        } = await parseEvents(events, rewardIndexesMap);
-  
-        console.log('Delegations:', delegations);
-        console.log('Accepted Delegations:', acceptedDelegations);
-        console.log('Committed Delegations:', committedDelegations);
-        console.log('Previous Delegations:', previousDelegations);
-  
-        await saveDelegations(delegations);
-        await saveAcceptedDelegations(acceptedDelegations);
-        await saveCommittedDelegations(committedDelegations);
-        await savePreviousDelegations(previousDelegations);
-  
+      await createAndClearTables();
+
+      const dbEntries = await removeAnchoredTransactionsFromDatabase();
+      const events = await getEvents();
+
+      const rewardIndexesMap = await getRewardIndexesMap(currentCycle);
+
+      const {
+        delegations,
+        acceptedDelegations,
+        committedDelegations,
+        previousDelegations,
+      } = await parseEvents(events, rewardIndexesMap);
+
+      console.log('Delegations:', delegations);
+      console.log('Accepted Delegations:', acceptedDelegations);
+      console.log('Committed Delegations:', committedDelegations);
+      console.log('Previous Delegations:', previousDelegations);
+
+      await saveDelegations(delegations);
+      await saveAcceptedDelegations(acceptedDelegations);
+      await saveCommittedDelegations(committedDelegations);
+      await savePreviousDelegations(previousDelegations);
+
+      if (blocksUntilPreparePhase > 0) {
+
         await checkAndBroadcastTransactions(
           delegations,
           acceptedDelegations,

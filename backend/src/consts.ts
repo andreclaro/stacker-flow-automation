@@ -94,7 +94,7 @@ const API_CONFIG = {
     POOL_PRIVATE_KEY: process.env.POOL_PRIVATE_KEY,
     SIGNER_PRIVATE_KEY: process.env.SIGNER_PRIVATE_KEY,
     DATABASE_FILE: 'testnet-pox-events.sqlite',
-    FIRST_POX_4_CYCLE: 1,
+    FIRST_POX_4_CYCLE: 104,
   },
   [NetworkUsed.Devnet]: {
     API_URL: 'http://localhost:3999/extended/v1/tx/events',
